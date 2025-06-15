@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "name": "Roden",
+    "wins": 15,
+    "color": "#3b82f6"
+  },
+  {
+    "id": "2",
+    "name": "Reden",
+    "wins": 9,
+    "color": "#22c55e"
+  },
+  {
+    "id": "3",
+    "name": "Bernadeth",
+    "wins": 7,
+    "color": "#6366f1"
+  },
+  {
+    "id": "4",
+    "name": "Bernard",
+    "wins": 7,
+    "color": "#f97316"
+  },
+  {
+    "id": "wc09czdj2",
+    "name": "Eden",
+    "wins": 3,
+    "color": "#eab308"
+  },
+  {
+    "id": "3fhgf3qom",
+    "name": "Renz",
+    "wins": 3,
+    "color": "#06b6d4"
+  },
+  {
+    "id": "p8gcq0c2l",
+    "name": "Diana",
+    "wins": 1,
+    "color": "#ec4899"
+  }
+]
