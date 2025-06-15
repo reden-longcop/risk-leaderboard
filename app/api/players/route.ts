@@ -1,36 +1,60 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { getPlayers, savePlayers, type Player } from "@/lib/db"
+// lib/db.ts
+import { createClient } from "@libsql/client"
 
-export async function GET() {
-  try {
-    const players = await getPlayers()
-    return NextResponse.json(players)
-  } catch (error) {
-    console.error("Error fetching players:", error)
-    return NextResponse.json({ error: "Failed to fetch players" }, { status: 500 })
-  }
+export interface Player {
+  id: string
+  name: string
+  wins: number
+  color: string
 }
 
-export async function POST(request: NextRequest) {
-  try {
-    const players: Player[] = await request.json()
+const client = createClient({
+  url: process.env.TURSO_DATABASE_URL!,
+  authToken: process.env.TURSO_AUTH_TOKEN,
+})
 
-    // Basic validation
-    if (!Array.isArray(players)) {
-      return NextResponse.json({ error: "Invalid data format" }, { status: 400 })
-    }
+const db = client
 
-    // Validate each player object
-    for (const player of players) {
-      if (!player.id || !player.name || typeof player.wins !== "number" || !player.color) {
-        return NextResponse.json({ error: "Invalid player data" }, { status: 400 })
-      }
-    }
+async function ensureTableExists() {
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS players (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      wins INTEGER NOT NULL,
+      color TEXT NOT NULL
+    );
+  `)
+}
 
-    await savePlayers(players)
-    return NextResponse.json({ success: true })
-  } catch (error) {
-    console.error("Error saving players:", error)
-    return NextResponse.json({ error: "Failed to save players" }, { status: 500 })
+export async function getPlayers(): Promise<Player[]> {
+  await ensureTableExists()
+  const result = await db.execute("SELECT * FROM players")
+
+  // Transform each row to match Player shape
+  const players: Player[] = result.rows.map(row => ({
+    id: row.id as string,
+    name: row.name as string,
+    wins: Number(row.wins),
+    color: row.color as string,
+  }))
+
+  return players
+}
+
+export async function savePlayers(players: Player[]): Promise<void> {
+  await ensureTableExists()
+
+  for (const player of players) {
+    await db.execute({
+      sql: `
+        INSERT INTO players (id, name, wins, color)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+          name = excluded.name,
+          wins = excluded.wins,
+          color = excluded.color
+      `,
+      args: [player.id, player.name, player.wins, player.color],
+    })
   }
 }
