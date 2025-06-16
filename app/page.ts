@@ -5,11 +5,11 @@ export const metadata = {
   openGraph: {
     title: "Risk Leaderboard",
     description: "Track your Risk games with style",
-    url: "https://your-site.com", // replace with your actual domain
+    url: "https://risk-leaderboard.vercel.app", // replace with your actual domain
     siteName: "Risk Leaderboard",
     images: [
       {
-        url: "https://your-site.com/api/og", // dynamic OG image route
+        url: "https://risk-leaderboard.vercel.app/api/og", // dynamic OG image route
         width: 1200,
         height: 630,
         alt: "Risk Leaderboard Preview",
