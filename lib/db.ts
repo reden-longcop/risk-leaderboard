@@ -1,5 +1,6 @@
-import { promises as fs } from "fs"
-import path from "path"
+// lib/db.ts
+import { createClient } from "@libsql/client"
+import { randomUUID } from "crypto"
 
 export interface Player {
   id: string
@@ -8,53 +9,41 @@ export interface Player {
   color: string
 }
 
-const DB_PATH = path.join(process.cwd(), "data", "leaderboard.json")
-
-// Ensure data directory exists
-async function ensureDataDir() {
-  const dataDir = path.dirname(DB_PATH)
-  try {
-    await fs.access(dataDir)
-  } catch {
-    await fs.mkdir(dataDir, { recursive: true })
-  }
-}
-
-// Initialize database with default data if it doesn't exist
-async function initializeDB() {
-  await ensureDataDir()
-
-  try {
-    await fs.access(DB_PATH)
-  } catch {
-    const defaultPlayers: Player[] = [
-      { id: "1", name: "Napoleon", wins: 15, color: "#ef4444" },
-      { id: "2", name: "Caesar", wins: 12, color: "#3b82f6" },
-      { id: "3", name: "Alexander", wins: 10, color: "#22c55e" },
-      { id: "4", name: "Hannibal", wins: 8, color: "#8b5cf6" },
-    ]
-    await fs.writeFile(DB_PATH, JSON.stringify(defaultPlayers, null, 2))
-  }
-}
+const client = createClient({
+  url: process.env.TURSO_DATABASE_URL!,
+  authToken: process.env.TURSO_AUTH_TOKEN!,
+})
 
 export async function getPlayers(): Promise<Player[]> {
-  await initializeDB()
+  const result = await client.execute("SELECT * FROM players")
 
-  try {
-    const data = await fs.readFile(DB_PATH, "utf-8")
-    return JSON.parse(data)
-  } catch (error) {
-    console.error("Error reading players:", error)
-    return []
-  }
+  const players: Player[] = result.rows.map((row) => ({
+    id: row.id as string,
+    name: row.name as string,
+    wins: Number(row.wins),
+    color: row.color as string,
+  }))
+
+  return players
 }
 
 export async function savePlayers(players: Player[]): Promise<void> {
-  await ensureDataDir()
+  const tx = await client.transaction("write")
 
   try {
-    await fs.writeFile(DB_PATH, JSON.stringify(players, null, 2))
+    // Optional: clear all existing players if replacing
+    await tx.execute("DELETE FROM players")
+
+    for (const player of players) {
+      await tx.execute({
+        sql: "INSERT INTO players (id, name, wins, color) VALUES (?, ?, ?, ?)",
+        args: [player.id || randomUUID(), player.name, player.wins, player.color],
+      })
+    }
+
+    await tx.commit()
   } catch (error) {
+    await tx.rollback()
     console.error("Error saving players:", error)
     throw new Error("Failed to save players")
   }

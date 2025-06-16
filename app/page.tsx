@@ -1,7 +1,7 @@
 // app/page.tsx
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -150,7 +150,10 @@ export default function RiskLeaderboard() {
   }
 
   // Sort players by win rate and wins
-  const sortedPlayers = [...players].sort((a, b) => b.wins - a.wins)
+  const sortedPlayers = useMemo(() => {
+    return [...players].sort((a, b) => b.wins - a.wins)
+  }, [players])
+
 
   // Check for ranking changes and trigger animations
   useEffect(() => {
