@@ -1,31 +1,4 @@
 // app/page.tsx
-export const metadata = {
-  title: "Risk Leaderboard",
-  description: "Track your Risk games with style",
-  openGraph: {
-    title: "Risk Leaderboard",
-    description: "Track your Risk games with style",
-    url: "https://risk-leaderboard.vercel.app",
-    siteName: "Risk Leaderboard",
-    images: [
-      {
-        url: "https://risk-leaderboard.vercel.app/api/og",
-        width: 1200,
-        height: 630,
-        alt: "Risk Leaderboard Preview",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Risk Leaderboard",
-    description: "Track your Risk games with style",
-    images: ["https://risk-leaderboard.vercel.app/api/og"],
-  },
-}
-// ... rest of your code
-
 "use client"
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react"
