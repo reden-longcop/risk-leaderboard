@@ -725,6 +725,14 @@ video {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }
+.mx-0 {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 .-ml-4 {
   margin-left: -1rem;
 }
@@ -990,6 +998,9 @@ video {
 .max-w-sm {
   max-width: 24rem;
 }
+.max-w-xs {
+  max-width: 20rem;
+}
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1216,9 +1227,16 @@ video {
 .rounded-sm {
   border-radius: calc(var(--radius) - 4px);
 }
+.rounded {
+  border-radius: 0.25rem;
+}
 .rounded-t-\[10px\] {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+.rounded-s {
+  border-start-start-radius: 0.25rem;
+  border-end-start-radius: 0.25rem;
 }
 .rounded-tl-sm {
   border-top-left-radius: calc(var(--radius) - 4px);
@@ -1298,6 +1316,10 @@ video {
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
+}
+.border-rose-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(225 29 72 / var(--tw-border-opacity, 1));
 }
 .border-l-transparent {
   border-left-color: transparent;
@@ -1383,6 +1405,9 @@ video {
 }
 .bg-transparent {
   background-color: transparent;
+}
+.bg-slate-900\/80 {
+  background-color: rgb(15 23 42 / 0.8);
 }
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
@@ -1535,6 +1560,9 @@ video {
 }
 .pt-4 {
   padding-top: 1rem;
+}
+.pl-3 {
+  padding-left: 0.75rem;
 }
 .text-left {
   text-align: left;
@@ -1774,6 +1802,11 @@ video {
 }
 .backdrop-blur-md {
   --tw-backdrop-blur: blur(12px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-blur-sm {
+  --tw-backdrop-blur: blur(4px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
@@ -2902,6 +2935,16 @@ video {
     margin-right: 0px;
   }
 
+  .sm\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .sm\:mx-4 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
   .sm\:mb-6 {
     margin-bottom: 1.5rem;
   }
@@ -2942,6 +2985,14 @@ video {
     height: 2rem;
   }
 
+  .sm\:h-12 {
+    height: 3rem;
+  }
+
+  .sm\:h-10 {
+    height: 2.5rem;
+  }
+
   .sm\:w-4 {
     width: 1rem;
   }
@@ -2954,12 +3005,56 @@ video {
     width: 2rem;
   }
 
+  .sm\:w-24 {
+    width: 6rem;
+  }
+
+  .sm\:w-2 {
+    width: 0.5rem;
+  }
+
+  .sm\:w-\[\] {
+    width: ;
+  }
+
+  .sm\:w-\[10\] {
+    width: 10;
+  }
+
+  .sm\:w-\[10em\] {
+    width: 10em;
+  }
+
+  .sm\:w-12 {
+    width: 3rem;
+  }
+
+  .sm\:w-10 {
+    width: 2.5rem;
+  }
+
   .sm\:max-w-md {
     max-width: 28rem;
   }
 
   .sm\:max-w-sm {
     max-width: 24rem;
+  }
+
+  .sm\:max-w-24 {
+    max-width: 6rem;
+  }
+
+  .sm\:max-w-\[\] {
+    max-width: ;
+  }
+
+  .sm\:max-w-\[24\] {
+    max-width: 24;
+  }
+
+  .sm\:max-w-\[2\] {
+    max-width: 2;
   }
 
   .sm\:flex-row {
@@ -2984,6 +3079,10 @@ video {
 
   .sm\:gap-4 {
     gap: 1rem;
+  }
+
+  .sm\:gap-2 {
+    gap: 0.5rem;
   }
 
   .sm\:space-x-2 > :not([hidden]) ~ :not([hidden]) {
@@ -3054,6 +3153,11 @@ video {
   .sm\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .sm\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   .data-\[state\=open\]\:sm\:slide-in-from-bottom-full[data-state="open"] {

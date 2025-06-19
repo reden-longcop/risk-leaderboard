@@ -1,4 +1,4 @@
-// File: /Users/redenlongcop/Documents/risk-leaderboard-github/app/page.tsx
+// File: /Users/redenlongcop/Documents/risk-leaderboard/app/page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -5,7 +5,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogTrigger, DialogContent, DialogOverlay, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label"
 import { Plus, Edit, Sword, Crown, Save, RefreshCw } from "lucide-react"
 
@@ -408,7 +408,7 @@ export default function RiskLeaderboard() {
                   Add Warrior
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-slate-900/95 text-white border-slate-600 backdrop-blur-md mx-2 sm:mx-0 max-w-sm sm:max-w-md">
+              <DialogContent className="bg-slate-900/95 text-white border-slate-600  w-full max-w-xs sm:max-w-md sm:mx-0">
                 <DialogHeader>
                   <DialogTitle className="text-white text-lg sm:text-xl">Add New Warrior</DialogTitle>
                 </DialogHeader>
@@ -539,59 +539,64 @@ export default function RiskLeaderboard() {
                               <Edit className="w-3 h-3" />
                             </Button>
                           </DialogTrigger>
-                          <DialogContent className="bg-slate-900/95 text-white border-slate-600 backdrop-blur-md mx-2 max-w-sm">
-                            <DialogHeader>
-                              <DialogTitle className="text-lg">Edit Warrior</DialogTitle>
-                            </DialogHeader>
-                            {editingPlayer && (
-                              <div className="space-y-4">
-                                <div>
-                                  <Label htmlFor="edit-name" className="text-slate-300 text-sm">
-                                    Warrior Name
-                                  </Label>
-                                  <Input
-                                    id="edit-name"
-                                    value={editingPlayer.name}
-                                    onChange={(e) => setEditingPlayer({ ...editingPlayer, name: e.target.value })}
-                                    className="bg-slate-800/70 border-slate-600 text-white text-sm"
-                                  />
-                                </div>
-                                <div>
-                                  <Label htmlFor="edit-wins" className="text-slate-300 text-sm">
-                                    Victories
-                                  </Label>
-                                  <Input
-                                    id="edit-wins"
-                                    type="number"
-                                    value={editingPlayer.wins}
-                                    onChange={(e) =>
-                                      setEditingPlayer({ ...editingPlayer, wins: Number.parseInt(e.target.value) || 0 })
-                                    }
-                                    className="bg-slate-800/70 border-slate-600 text-white text-sm"
-                                  />
-                                </div>
-                                <div>
-                                  <Label className="text-slate-300 text-sm">Banner Color</Label>
-                                  <div className="flex flex-wrap gap-2 mt-2">
-                                    {COLORS.map((color) => (
-                                      <button
-                                        key={color}
-                                        className={`w-6 h-6 rounded-full border-2 ${editingPlayer.color === color ? "border-white ring-2 ring-blue-400" : "border-slate-500"}`}
-                                        style={{ backgroundColor: color }}
-                                        onClick={() => setEditingPlayer({ ...editingPlayer, color })}
-                                      />
-                                    ))}
-                                  </div>
-                                </div>
-                                <Button
-                                  onClick={() => updatePlayer(editingPlayer)}
-                                  className="w-full bg-blue-600 hover:bg-blue-700 text-sm"
-                                >
-                                  Update Warrior
-                                </Button>
+                          <DialogContent className="bg-slate-900/95 text-white border-slate-600 w-full max-w-xs sm:max-w-md sm:mx-0">
+                          <DialogHeader>
+                            <DialogTitle className="text-white text-lg sm:text-xl">Edit Warrior</DialogTitle>
+                          </DialogHeader>
+                          {editingPlayer && (
+                            <div className="space-y-4">
+                              <div>
+                                <Label htmlFor="edit-name" className="text-slate-300 text-sm sm:text-base">
+                                  Warrior Name
+                                </Label>
+                                <Input
+                                  id="edit-name"
+                                  value={editingPlayer.name}
+                                  onChange={(e) => setEditingPlayer({ ...editingPlayer, name: e.target.value })}
+                                  className="bg-slate-800/70 border-slate-600 text-white text-sm sm:text-base"
+                                />
                               </div>
-                            )}
-                          </DialogContent>
+                              <div>
+                                <Label htmlFor="edit-wins" className="text-slate-300 text-sm sm:text-base">
+                                  Victories
+                                </Label>
+                                <Input
+                                  id="edit-wins"
+                                  type="number"
+                                  value={editingPlayer.wins}
+                                  onChange={(e) =>
+                                    setEditingPlayer({ ...editingPlayer, wins: Number.parseInt(e.target.value) || 0 })
+                                  }
+                                  className="bg-slate-800/70 border-slate-600 text-white text-sm sm:text-base"
+                                />
+                              </div>
+                              <div>
+                                <Label className="text-slate-300 text-sm sm:text-base">Banner Color</Label>
+                                <div className="flex flex-wrap gap-2 mt-2">
+                                  {COLORS.map((color) => (
+                                    <button
+                                      key={color}
+                                      className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 ${
+                                        editingPlayer.color === color
+                                          ? "border-white ring-2 ring-blue-400"
+                                          : "border-slate-500"
+                                      }`}
+                                      style={{ backgroundColor: color }}
+                                      onClick={() => setEditingPlayer({ ...editingPlayer, color })}
+                                    />
+                                  ))}
+                                </div>
+                              </div>
+                              <Button
+                                onClick={() => updatePlayer(editingPlayer)}
+                                className="w-full bg-blue-600 hover:bg-blue-700 text-sm sm:text-base"
+                              >
+                                Update Warrior
+                              </Button>
+                            </div>
+                          )}
+                        </DialogContent>
+
                         </Dialog>
                       </div>
                     </div>
@@ -647,7 +652,7 @@ export default function RiskLeaderboard() {
                               <Edit className="w-4 h-4" />
                             </Button>
                           </DialogTrigger>
-                          <DialogContent className="bg-slate-900/95 text-white border-slate-600 backdrop-blur-md">
+                          {/* <DialogContent className="bg-slate-900/95 text-white border-slate-600 backdrop-blur-md w-full max-w-xs sm:max-w-md sm:mx-4">
                             <DialogHeader>
                               <DialogTitle>Edit Warrior</DialogTitle>
                             </DialogHeader>
@@ -699,7 +704,7 @@ export default function RiskLeaderboard() {
                                 </Button>
                               </div>
                             )}
-                          </DialogContent>
+                          </DialogContent> */}
                         </Dialog>
                       </div>
                     </div>

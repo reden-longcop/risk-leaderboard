@@ -1,4 +1,4 @@
-// File: /Users/redenlongcop/Documents/risk-leaderboard-github/app/api/players/route.ts
+// File: /Users/redenlongcop/Documents/risk-leaderboard/app/api/players/route.ts
 import * as entry from '../../../../../app/api/players/route.js'
 import type { NextRequest } from 'next/server.js'
 
